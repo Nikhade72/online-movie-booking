@@ -26,10 +26,10 @@ const Login = () => {
       .then((response) => {
         console.log(response);
         if (response.data.message === "login successfull") {
-          navigate("/userdashboard");
+          navigate("/user");
         } else if (response.data.message === "admin login  successfull") {
           alert("admin login succesfull");
-          navigate("/admindashboard");
+          navigate("/admin");
         } else {
           console.log(response.data.message);
           alert(response.data.message);
@@ -41,7 +41,7 @@ const Login = () => {
     <div>
       <>
       <div className ="add" style={{ backgroundImage: 'url("https://s.yimg.com/fz/api/res/1.2/FTrub4bAJA0ESrJmV9wPjQ--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpdDtoPTI2MDtxPTgwO3c9MzMy/https://s.yimg.com/zb/imgv1/96b25df1-201c-37fb-af41-64e5f125b32e/t_500x300")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat',  height: '1000px'}}>
-      <Dialog open={"true"}>
+      <Dialog open={true}>
         <Box margin={"1%"}>
           <Typography
             fontSize="30px"
@@ -70,7 +70,7 @@ const Login = () => {
             margin="auto"
             name="password"
             label="Password"
-            type="email"
+            type="password"
             fullWidth
             variant="standard"
             onChange={inputHandler}

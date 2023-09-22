@@ -22,8 +22,8 @@ const MovieList = () => {
       <ul>
         {movies.map((movie) => (
           <li key={movie.id}>
-            <Link to={`/movie/${movie.id}`}>
-              <img src={movie.poster} alt={movie.name} />
+            <Link to={`/MovieDetails/${movie.id}`}>
+              <img src={movie.Image} alt={movie.name} />
               <h2>{movie.name}</h2>
             </Link>
           </li>

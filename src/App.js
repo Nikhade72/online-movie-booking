@@ -17,11 +17,10 @@ function App() {
         <Route path="/" exact element={<Home/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup/>}/>
-        <Route path="/user" element={<User/>}/>
         <Route path="/admin" element={<Admin/>}/>
         <Route path="/movielist" element={<MovieList/>}/>
         <Route path="/movie/:id" component={MovieDetails} />
-
+        <Route path="/user" element ={<User/>}/>
       </Routes>
       </BrowserRouter>
     </div>

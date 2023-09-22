@@ -4,9 +4,9 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Header from './Header'; 
 
-const MovieDetails = ({ match }) => {
-    const { id } = useParams();
-  const [movieDetails, setMovieDetails] = useState(null);
+const MovieDetails = ({ Image, Category, Description, Cast, review, }) => {
+  const { id } = useParams();
+  const [movieDetails, setMovieDetails] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   useEffect(() => {
@@ -73,7 +73,7 @@ const MovieDetails = ({ match }) => {
           variant="contained"
           color="primary"
           onClick={() => {
-            // Handle book ticket logic here
+            alert('see more')
           }}
         >
           Book Ticket
