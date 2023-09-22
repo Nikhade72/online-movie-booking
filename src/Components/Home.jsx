@@ -10,12 +10,15 @@ import axios from 'axios';
 import Card from '@mui/material/Card';
 import { useEffect, useState } from 'react'
 
+
+
+
 const Home = () => {
     const [movie, setMovie] = useState([]);
     const [movieData, setMovieData] = useState([])
     const movieId = sessionStorage.getItem("movieId")
-    const detailshandler = (e) =>{  console. log(e._id)}
-    
+    const detailshandler = (e) => { console.log(e._id) }
+
     useEffect((value) => {
         axios.post("http://localhost:3001/api/viewMovies")
             .then((response) => {
@@ -55,10 +58,10 @@ const Home = () => {
                                     {value.MovieName}
                                 </Typography>
                                 <Typography gutterBottom variant="h6" component="div">
-                                Category: {value.Category}
+                                    Category: {value.Category}
                                 </Typography>
                                 <Typography gutterBottom variant="h6" component="div">
-                                Languages: {value.Languages}
+                                    Languages: {value.Languages}
                                 </Typography>
                             </CardContent>
                             <CardActionArea>
@@ -75,11 +78,11 @@ const Home = () => {
                                     //     },
                                     // }}
                                     // size="small"
-                                    value = {value}
+                                    value={value}
                                     variant='text'
-                                    onClick={()=> detailshandler (value)}
+                                    onClick={() => detailshandler(value)}
                                     sx={{
-                                        justifyContent:'center'
+                                        justifyContent: 'center'
                                     }}
                                 >
                                     See More
@@ -95,6 +98,14 @@ const Home = () => {
                     </Button>
                 </Box>
             </Box>
+            <div>
+                <div className="footer-copyright" style={{ textAlign: 'center' }}>
+                    &copy; {new Date().getFullYear()} Online Movie Booking
+                </div>
+                <div className="Link" style={{ textAlign: 'center' }}>
+                    <a href="/" style={{ color: 'black', textDecoration: 'none' }}>Home</a>
+                </div>
+            </div>
 
         </div>
     )
