@@ -40,13 +40,13 @@ const Signup = () => {
   <>
   <div className ="add" style={{ backgroundImage: 'url("https://assets.pandaily.com/uploads/2020/07/movie-theaters-1600x832.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat',  height: '1000px'}}>
   <Dialog open={"true"} >
-        <Box margin={"1%"}>
+        <Box margin={"3%"}>
           <Typography
 
 
             fontSize="30px"
             paddingTop={2}
-            lineHeight={1.3}
+            lineHeight={1.5}
 
             fontWeight="500"
             textAlign={"center"}

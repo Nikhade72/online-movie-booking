@@ -7,6 +7,7 @@ import User from "./Components/User";
 import Admin from "./Components/Admin";
 import MovieDetails from "./Components/MovieDetails";
 import MovieList from "./Components/MovieList";
+import Footer from "./Components/Footer";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/movielist" element={<MovieList/>}/>
         <Route path="/movie/:id" component={MovieDetails} />
         <Route path="/user" element ={<User/>}/>
+        <Route path="/footer" element={<Footer/>}/>
       </Routes>
       </BrowserRouter>
     </div>

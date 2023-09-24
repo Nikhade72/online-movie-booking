@@ -10,6 +10,7 @@ import TextField from "@mui/material/TextField";
 import { Box, Typography, Link } from "@mui/material";
 import axios, { Axios } from "axios";
 import { useNavigate } from "react-router-dom";
+import Footer from "./Footer";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -39,71 +40,74 @@ const Login = () => {
   };
   return (
     <div>
-      <>
-      <div className ="add" style={{ backgroundImage: 'url("https://s.yimg.com/fz/api/res/1.2/FTrub4bAJA0ESrJmV9wPjQ--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpdDtoPTI2MDtxPTgwO3c9MzMy/https://s.yimg.com/zb/imgv1/96b25df1-201c-37fb-af41-64e5f125b32e/t_500x300")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat',  height: '1000px'}}>
-      <Dialog open={true}>
-        <Box margin={"1%"}>
-          <Typography
-            fontSize="30px"
-            paddingTop={2}
-            lineHeight={1.3}
-            fontWeight="500"
-            textAlign={"center"}
-          >
-            Log In
-          </Typography>
-        </Box>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="auto"
-            name="email"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-            onChange={inputHandler}
-          />
-          <span> </span>
-          <TextField
-            autoFocus
-            margin="auto"
-            name="password"
-            label="Password"
-            type="password"
-            fullWidth
-            variant="standard"
-            onChange={inputHandler}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button sx={{ backgroundColor: "green", margin: "20px" }}
-            variant="auto"
-            fullWidth
-            textAlign={"center"}
-            size="large"
-            onClick={loginHandler}
-          >
-            LOG IN
-          </Button>
-        </DialogActions>
-        <Box>
-          <Typography
-            marginBottom={"10%"}
-            fontSize="18px"
-            lineHeight={1.3}
-            fontWeight="800"
-            paddingTop={2}
-            textAlign={"center"}
-          >
-            <p>
-              Create new Account ? <a href="/signup">Sign Up</a>
-            </p>
-          </Typography>
-        </Box>
-      </Dialog>
-      </div>
-      </>
+     
+        <div className="add" style={{ backgroundImage: 'url("https://s.yimg.com/fz/api/res/1.2/FTrub4bAJA0ESrJmV9wPjQ--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpdDtoPTI2MDtxPTgwO3c9MzMy/https://s.yimg.com/zb/imgv1/96b25df1-201c-37fb-af41-64e5f125b32e/t_500x300")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: '1000px' }}>
+          <Dialog open={true}>
+            <Box margin={"2%"}>
+              <Typography
+                fontSize="30px"
+                paddingTop={2}
+                lineHeight={1.5}
+                fontWeight="500"
+                textAlign={"center"}
+              >
+                Log In
+              </Typography>
+            </Box>
+            <DialogContent>
+              <TextField
+                autoFocus
+                margin="auto"
+                name="email"
+                label="Email Address"
+                type="email"
+                fullWidth
+                variant="standard"
+                onChange={inputHandler}
+              />
+              <span> </span>
+              <TextField
+                autoFocus
+                margin="auto"
+                name="password"
+                label="Password"
+                type="password"
+                fullWidth
+                variant="standard"
+                onChange={inputHandler}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button sx={{ backgroundColor: "green", margin: "20px" }} variant="auto" fullWidth
+                textAlign={"center"}
+                size="large"
+                onClick={loginHandler}
+              >
+                LOG IN
+              </Button>
+            </DialogActions>
+            <Box>
+              <Typography
+                marginBottom={"10%"}
+                fontSize="18px"
+                lineHeight={1.3}
+                fontWeight="800"
+                paddingTop={2}
+                textAlign={"center"}
+              >
+                <p>
+                  Create new Account ? <a href="/signup">Sign Up</a>
+                </p>
+              </Typography>
+            </Box>
+
+         
+          </Dialog>
+         
+
+        </div>
+      
+      
     </div>
   );
 };
