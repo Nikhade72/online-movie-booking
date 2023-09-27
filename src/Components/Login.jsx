@@ -25,12 +25,12 @@ const Login = () => {
     axios
       .post("http://localhost:3001/api/login", input)
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         if (response.data.message === "login successfull") {
           navigate("/user");
-        } else if (response.data.message === "admin login  successfull") {
-          alert("admin login succesfull");
-          navigate("/admin");
+        } else if (response.data.message === "admin successfull") {
+          alert("admin successfull");
+          navigate("/admin")
         } else {
           console.log(response.data.message);
           alert(response.data.message);
@@ -100,7 +100,6 @@ const Login = () => {
                 </p>
               </Typography>
             </Box>
-
          
           </Dialog>
          

@@ -12,30 +12,29 @@ import { useEffect, useState } from 'react'
 import Userheader from './Userheader';
 
 
-const User = () => {
-    const [movie, setMovie] = useState([]);
+const ShowMore = () => {
+  const [movie, setMovie] = useState([]);
     const [movieData, setMovieData] = useState([])
     const movieId = sessionStorage.getItem("movieId")
     const detailshandler = (e) => { console.log(e._id) }
 
     useEffect(() => {
-            axios.post("http://localhost:3001/api/viewMovies")
-                .then((response) => {
-                    if (response.status === 200) {
-                        console.log("success");
-                        setMovie(response.data);
-                        setMovieData(response.data); // Update this line
-                    } else {
-                        console.log("Error. Please try again later.");
-                    }
-                })
-                .catch((error) => console.log(error));
-        }, []);
-    
+      axios.post("http://localhost:3001/api/viewMovies")
+          .then((response) => {
+              if (response.status === 200) {
+                  console.log("success");
+                  setMovie(response.data);
+                  setMovieData(response.data); // Update this line
+              } else {
+                  console.log("Error. Please try again later.");
+              }
+          })
+          .catch((error) => console.log(error));
+  }, []);
 
 
-    return (
-        <div>
+  return (
+    <div>
          <Header />
     <Box width={'100%'} height={'100%'} margin={'auto'} marginTop={2}>
       <Box padding={5} margin={'auto'}>
@@ -55,7 +54,7 @@ const User = () => {
             h-100
             sx={{
               maxWidth: 550,
-              height: 700,
+              height: 1000,
               borderRadius: 3,
               padding: '2%',
               margin: '2%',
@@ -82,22 +81,25 @@ const User = () => {
                 {value.MovieName}
               </Typography>
               <Typography gutterBottom variant='h6' component='div'>
-                Category: {value.Category}
+              Description: {value.Description}
               </Typography>
               <Typography gutterBottom variant='h6' component='div'>
-                Languages: {value.Languages}
+              Cast: {value.Cast}
+              </Typography>
+              <Typography gutterBottom variant='h6' component='div'>
+              Reviews: {value. Reviews}
               </Typography>
             </CardContent>
             <CardActionArea>
                 <Button
                   LinkComponent={Link}
-                  to={`/showmore`}
+                  to={`/booking`}
                   variant='text'
                   sx={{
                     justifyContent: 'center'
                   }}
                 >
-                  Movie Details
+                  Book Movie 
                 </Button>
               </CardActionArea>
           </Card>
@@ -106,7 +108,7 @@ const User = () => {
     </Box>
     <a href='/'>home</a>
     </div>
-    )
+  )
 }
 
-export default User
+export default ShowMore

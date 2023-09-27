@@ -9,6 +9,7 @@ const MovieDetails = ({ Image, Category, Description, Cast, review, }) => {
   const [movieDetails, setMovieDetails] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
   useEffect(() => {
     // Define your backend API endpoint for fetching movie details
     const apiUrl = `http://localhost:3001/api/viewMovies/${id}`;
