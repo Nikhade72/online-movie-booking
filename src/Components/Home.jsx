@@ -99,13 +99,13 @@ const Home = () => {
                 </div>
         
             </> */}
-      <div className="add" style={{ backgroundImage: 'url("https://lovelace-media.imgix.net/getty/3208189.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: '1000px' }}>
+      <div className="add" style={{ backgroundImage: 'url("https://lovelace-media.imgix.net/getty/3208189.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: '1500px' }}>
         <Header />
-        <Box width={'100%'} height={'100%'} margin={'auto'} marginTop={2}>
+        <Box width={'70%'} height={'100%'} margin={'auto'} marginTop={2}>
           <Box margin={'auto'} width={'100%'} height={'50vh'} padding={2}>
             <img
-              src="https://tse3.mm.bing.net/th?id=OIF.Y5hSI0gAUgWNdQthtqTt0Q&pid=Api&P=0&h=180"
-              alt="jawan"
+              src="https://tse3.mm.bing.net/th?id=OIP.uxbm9kU5WrFiAm5PoHN-9QHaD4&pid=Api&P=0&h=180"
+              alt="ved"
               width={'100%'}
               height={'100%'}
             />
@@ -154,6 +154,7 @@ const Home = () => {
       </div>
 
     </div>
+
 
   )
 }

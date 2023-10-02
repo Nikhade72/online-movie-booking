@@ -35,11 +35,11 @@ const User = () => {
 
 
     return (
-        <div>
+        <div className="add" style={{ backgroundImage: 'url("http://theestablishmenthairdressing.com/wp-content/uploads/2017/09/Booking-Background.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: 'auto' }}>
          <Header />
     <Box width={'100%'} height={'100%'} margin={'auto'} marginTop={2}>
       <Box padding={5} margin={'auto'}>
-        <Typography variant='h4' textAlign={'center'}>
+        <Typography variant='h4' textAlign={'center'} color={'white'}>
           Latest Release
         </Typography>
       </Box>
@@ -52,7 +52,6 @@ const User = () => {
         {movie.slice(0, 6).map((value, index) => (
           <Card
             key={index}
-            h-100
             sx={{
               maxWidth: 550,
               height: 700,
@@ -104,7 +103,6 @@ const User = () => {
         ))}
       </Box>
     </Box>
-    <a href='/'>home</a>
     </div>
     )
 }

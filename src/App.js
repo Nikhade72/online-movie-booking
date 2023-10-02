@@ -15,6 +15,7 @@ import AddMovies from "./Components/AddMovies";
 import ShowMore from "./Components/ShowMore";
 import AdminNav from "./Components/AdminNav";
 import MyBooking from "./Components/MyBooking";
+import Tickets from "./Components/Tickets";
 
 
 
@@ -37,7 +38,8 @@ function App() {
         <Route path="/addmovies" element={<AddMovies />} />
         <Route path="/showmore" element={<ShowMore />} />
         <Route path="/adminnav" element={<AdminNav />} />
-        <Route path="/mybooking" element={<MyBooking />} />
+        <Route path="/mybooking/:bookingId" element={<MyBooking />} /> 
+        <Route path="/tickets" element={<Tickets />} />
 
       </Routes>
       </BrowserRouter>

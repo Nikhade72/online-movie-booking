@@ -14,83 +14,83 @@ import Userheader from './Userheader';
 
 const ShowMore = () => {
   const [movie, setMovie] = useState([]);
-    const [movieData, setMovieData] = useState([])
-    const movieId = sessionStorage.getItem("movieId")
-    const detailshandler = (e) => { console.log(e._id) }
+  const [movieData, setMovieData] = useState([])
+  const movieId = sessionStorage.getItem("movieId")
+  const detailshandler = (e) => { console.log(e._id) }
 
-    useEffect(() => {
-      axios.post("http://localhost:3001/api/viewMovies")
-          .then((response) => {
-              if (response.status === 200) {
-                  console.log("success");
-                  setMovie(response.data);
-                  setMovieData(response.data); // Update this line
-              } else {
-                  console.log("Error. Please try again later.");
-              }
-          })
-          .catch((error) => console.log(error));
+  useEffect(() => {
+    axios.post("http://localhost:3001/api/viewMovies")
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("success");
+          setMovie(response.data);
+          setMovieData(response.data); // Update this line
+        } else {
+          console.log("Error. Please try again later.");
+        }
+      })
+      .catch((error) => console.log(error));
   }, []);
 
 
   return (
-    <div>
-         <Header />
-    <Box width={'100%'} height={'100%'} margin={'auto'} marginTop={2}>
-      <Box padding={5} margin={'auto'}>
-        <Typography variant='h4' textAlign={'center'}>
-          Latest Release
-        </Typography>
-      </Box>
-      <Box
-        display='flex'
-        width='100%'
-        justifyContent={'center'}
-        flexWrap='wrap'
-      >
-        {movie.slice(0, 6).map((value, index) => (
-          <Card
-            key={index}
-            h-100
-            sx={{
-              maxWidth: 550,
-              height: 1000,
-              borderRadius: 3,
-              padding: '2%',
-              margin: '2%',
-              ':hover': { boxShadow: '10px 10px 20px #cc' },
-            }}
-          >
-            <img
-              height={'50%'}
-              width={'100%'}
-              src={value.Image}
-              alt='movie poster'
-              margin='auto'
-              flex-grow={1}
-              flex-basis={0}
-              onClick={() => {
-                // Handle click on the image here
-                console.log('Clicked on image:', value._id);
-                // You can navigate to the movie details page here if needed
+    <div className="add" style={{ backgroundImage: 'url("https://tse3.mm.bing.net/th?id=OIP.fvhKRuac8cM2VaujEhaIHgHaDe&pid=Api&P=0&h=180")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: 'auto' }}>
+      <Header />
+      <Box width={'100%'} height={'100%'} margin={'auto'} marginTop={2}>
+        <Box padding={5} margin={'auto'}>
+          <Typography variant='h4' textAlign={'center'}>
+            Latest Release
+          </Typography>
+        </Box>
+        <Box
+          display='flex'
+          width='100%'
+          justifyContent={'center'}
+          flexWrap='wrap'
+        >
+          {movie.slice(0, 6).map((value, index) => (
+            <Card
+              key={index}
+              h-100="true"
+              sx={{
+                maxWidth: 550,
+                height: 1000,
+                borderRadius: 3,
+                padding: '2%',
+                margin: '2%',
+                ':hover': { boxShadow: '10px 10px 20px #cc' },
               }}
-              style={{ cursor: 'pointer' }}
-            />
-            <CardContent>
-              <Typography gutterBottom variant='h6' component='div'>
-                {value.MovieName}
-              </Typography>
-              <Typography gutterBottom variant='h6' component='div'>
-              Description: {value.Description}
-              </Typography>
-              <Typography gutterBottom variant='h6' component='div'>
-              Cast: {value.Cast}
-              </Typography>
-              <Typography gutterBottom variant='h6' component='div'>
-              Reviews: {value. Reviews}
-              </Typography>
-            </CardContent>
-            <CardActionArea>
+            >
+              <img
+                height={'50%'}
+                width={'100%'}
+                src={value.Image}
+                alt='movie poster'
+                margin='auto'
+                flex-grow={1}
+                flex-basis={0}
+                onClick={() => {
+                  // Handle click on the image here
+                  console.log('Clicked on image:', value._id);
+                  // You can navigate to the movie details page here if needed
+                }}
+                style={{ cursor: 'pointer' }}
+              />
+              <CardContent>
+                <Typography gutterBottom variant='h6' component='div'>
+                  {value.MovieName}
+                </Typography>
+                <Typography gutterBottom variant='h6' component='div'>
+                  Description: {value.Description}
+                </Typography>
+                <Typography gutterBottom variant='h6' component='div'>
+                  Cast: {value.Cast}
+                </Typography>
+                <Typography gutterBottom variant='h6' component='div'>
+                  Reviews: {value.Reviews}
+                </Typography>
+              </CardContent>
+              <CardActionArea>
                 <Button
                   LinkComponent={Link}
                   to={`/booking`}
@@ -99,14 +99,13 @@ const ShowMore = () => {
                     justifyContent: 'center'
                   }}
                 >
-                  Book Movie 
+                  Book Movie
                 </Button>
               </CardActionArea>
-          </Card>
-        ))}
+            </Card>
+          ))}
+        </Box>
       </Box>
-    </Box>
-    <a href='/'>home</a>
     </div>
   )
 }

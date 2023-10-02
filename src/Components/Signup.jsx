@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react'
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -37,87 +36,82 @@ const Signup = () => {
   return (
 
     <div>
-  <>
-  <div className ="add" style={{ backgroundImage: 'url("https://assets.pandaily.com/uploads/2020/07/movie-theaters-1600x832.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat',  height: '1000px'}}>
-  <Dialog open={"true"} >
-        <Box margin={"3%"}>
-          <Typography
+      <>
+        <div className="add" style={{ backgroundImage: 'url("https://png.pngtree.com/thumb_back/fw800/back_our/20190621/ourmid/pngtree-film-scene-film-background-image_190374.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: '1000px' }}>
+          <Dialog open={true} >
+            <Box margin={"3%"}>
+              <Typography
+                fontSize="30px"
+                paddingTop={2}
+                lineHeight={1.5}
+                fontWeight="500"
+                textAlign={"center"}
+              >
+                Sign Up
+              </Typography>
+            </Box>
+            <DialogContent>
+              <TextField
+                autoFocus
+                margin="dense"
+                name="Name"
+                label="Name"
+                type="text"
+                fullWidth
+                variant="standard"
+                onChange={inputHandler}
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                name="email"
+                label="Email Address"
+                type="email"
+                fullWidth
+                variant="standard"
+                onChange={inputHandler}
+              />
+              <span> </span>
+              <TextField
+                autoFocus
+                margin="dense"
+                name="password"
+                label="Password"
+                type="email"
+                fullWidth
+                variant="standard"
+                onChange={inputHandler}
+              />
 
+            </DialogContent>
+            <DialogActions>
 
-            fontSize="30px"
-            paddingTop={2}
-            lineHeight={1.5}
+              <Button onClick={signupHandler} variant='contained' color="primary"
+                sx={{ backgroundColor: "green", margin: "10px", textAlign: "center" }}
+                fullWidth
+              >
+                SignUp
 
-            fontWeight="500"
-            textAlign={"center"}
-          >
-            Sign Up
-          </Typography>
-        </Box>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="auto"
-            name="Name"
-            label="Name"
-            type="text"
-            fullWidth
-            variant="standard"
-            onChange={inputHandler}
-          />
-          <TextField
-            autoFocus
-            margin="auto"
-            name="email"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-            onChange={inputHandler}
-          />
-          <span> </span>
-          <TextField
-            autoFocus
-            margin="auto"
-            name="password"
-            label="Password"
-            type="email"
-            fullWidth
-            variant="standard"
-            onChange={inputHandler}
-          />
+              </Button>
+            </DialogActions>
+            <Box margin={"auto"} >
+              <Typography
+                marginBottom={"10%"}
+                fontSize="15px"
+                paddingTop={2}
+                lineHeight={1.3}
+                fontWeight="800"
+                textAlign={"center"}
+              >
+                
+                 Already have an account?  <a href="/login">Log In</a>
+                
+              </Typography>
+            </Box>
+          </Dialog>
+        </div>
+      </>
 
-        </DialogContent>
-        <DialogActions>
-
-          <Button
-            sx={{ backgroundColor: "green", margin: "10px" }}
-            variant='auto'
-            fullWidth
-            textAlign={"center"}
-            size="large"
-            onClick={signupHandler}
-          >
-            SignUp
-
-          </Button>
-        </DialogActions>
-        <Box margin={"auto"} >
-          <Typography
-            marginBottom={"10%"}
-            fontSize="15px"
-            paddingTop={2}
-            lineHeight={1.3}
-            fontWeight="800"
-            textAlign={"center"}
-          >
-            <p> Already have an account? <a href="/login">Log In</a></p>
-          </Typography>
-        </Box>
-      </Dialog>
-  </div>
-  </>
-      
     </div>
   )
 }
