@@ -17,8 +17,12 @@ const Booking = () => {
     const [availableSeats, setAvailableSeats] = useState([]);
     const [enteredSeat, setEnteredSeat] = useState('');
     const [availabilityStatus, setAvailabilityStatus] = useState('Available');
-    const userId = sessionStorage.getItem("userId");
-    const navigate = useNavigate();
+    const [showTime, setShowTime] = useState(''); // Add showTime state
+    const [dates, setDates] = useState([]); // State for available dates
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const userId = sessionStorage.getItem('userId'); // 'userId' should match the key you used for setting it
+  const navigate = useNavigate();
 
 
 
@@ -58,7 +62,19 @@ const Booking = () => {
                 console.error('Error occurred while fetching data:', error);
             });
 
-    }, []);
+            // Fetch available dates and show times when the component mounts
+    axios
+    .get('http://localhost:3001/api/available-dates')
+    .then((response) => {
+      setDates(response.data);
+    })
+    .catch((error) => {
+      console.error('Error fetching available dates:', error);
+    });
+
+  
+
+     }, []);
 
     useEffect(() => {
         // Calculate availability status whenever selectedSeats change
@@ -95,21 +111,62 @@ const Booking = () => {
         }
     };
 
+    // const handleBookNow = () => {
+
+    //     const selectedMovieObject = movieData.find((movie) => movie._id === selectedMovie);
+    //     const userId = sessionStorage.getItem('userId'); // or from your authentication context
+
+    //     // Create a request object with selectedMovie, selectedSeats, name, email, and userId
+    //     const bookingData = {
+    //         movieId: selectedMovie,
+    //         seatIds: selectedSeats,
+    //         movieName: selectedMovieObject.MovieName, // Set movieName to the MovieName property
+    //         email: email,
+    //         userId: userId,
+    //         // date: {
+    //         //     type: Date,
+    //         //     default: new Date(), // Set the default value to the current date
+    //         // },
+    //         seat_number: selectedSeats.join(','),
+    //         showTime: selectedShowTime,             
+    //     };
+
+    //     // Send the bookingData to your backend API using Axios or another HTTP library
+    //     axios.post('http://localhost:3001/api/booktickets', bookingData)
+    //         .then((response) => {
+    //             if (response.status === 200) {
+    //                 console.log('Booking successful');
+    //                 console.log(response.data)
+    //                 const bookingId = response.data._id;
+    //                 console.log(bookingId);
+    //                 const bookedSeatNumber = selectedSeats.join(', '); // Get the selected seats as a comma-separated string
+    //                 window.alert(`Booking successful! Your seat number is: ${bookedSeatNumber}`);
+    //                 navigate(`/mybooking/${bookingId}`)
+    //             } else {
+    //                 console.error('Booking failed');
+    //                 window.alert('Booking failed. Please try again later.');
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             console.error('Error booking seats:', error);
+    //             window.alert('Already Reserved, Please select another seat.');
+    //         });
+    // };
     const handleBookNow = () => {
+        const selectedMovieObject = movieData.find((movie) => movie._id === selectedMovie);
+        const userId = sessionStorage.getItem('userId'); // or from your authentication context
+    
         // Create a request object with selectedMovie, selectedSeats, name, email, and userId
         const bookingData = {
             movieId: selectedMovie,
             seatIds: selectedSeats,
-            movieName: selectedMovie,
+            movieName: selectedMovieObject.MovieName, // Corrected: Set movieName to the MovieName property
             email: email,
             userId: userId,
-            date: {
-                type: Date,
-                default: new Date(), // Set the default value to the current date
-            },
             seat_number: selectedSeats.join(','),
+            showTime: selectedShowTime,             
         };
-
+    
         // Send the bookingData to your backend API using Axios or another HTTP library
         axios.post('http://localhost:3001/api/booktickets', bookingData)
             .then((response) => {
@@ -131,6 +188,8 @@ const Booking = () => {
                 window.alert('Already Reserved, Please select another seat.');
             });
     };
+    
+    
 
     const handleSeatTyping = (e) => {
         setEnteredSeat(e.target.value);
@@ -174,6 +233,7 @@ const Booking = () => {
         setSelectedSeats([]);
     };
 
+  const [selectedShowTime, setSelectedShowTime] = useState(''); 
 
     useEffect(() => {
         axios.post('http://localhost:3001/api/availableMovies')
@@ -197,6 +257,7 @@ const Booking = () => {
             });
         getdata();
     }, []);
+    
 
     return (
 
@@ -251,6 +312,7 @@ const Booking = () => {
                             ))}
                         </Select>
                     </FormControl>
+                    
                     <Typography variant="body1">
                         Availability Status: {availabilityStatus}
                     </Typography>
@@ -264,17 +326,15 @@ const Booking = () => {
                             >
                                 {seat}
                             </Button> */}
-                            {selectedSeats.map((seat) => (
-    <span
-        key={seat}
-        className={`seat ${selectedSeats.includes(seat) ? 'selected' : ''}`}
-        onClick={() => handleSeatSelection(seat)}
-    >
-        {seat}
-    </span>
-))}
-
-                    
+                        {selectedSeats.map((seat) => (
+                            <span
+                                key={seat}
+                                className={`seat ${selectedSeats.includes(seat) ? 'selected' : ''}`}
+                                onClick={() => handleSeatSelection(seat)}
+                            >
+                                {seat}
+                            </span>
+                        ))}
                     </Box>
                     <TextField
                         type="text"
@@ -284,6 +344,8 @@ const Booking = () => {
                         margin="normal"
                         fullWidth
                     />
+                    
+                    
                     <Button
                         variant="contained"
                         color="primary"
