@@ -19,10 +19,10 @@ const Booking = () => {
     const [availabilityStatus, setAvailabilityStatus] = useState('Available');
     const [showTime, setShowTime] = useState(''); // Add showTime state
     const [dates, setDates] = useState([]); // State for available dates
-  const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(null);
 
-  const userId = sessionStorage.getItem('userId'); // 'userId' should match the key you used for setting it
-  const navigate = useNavigate();
+    const userId = sessionStorage.getItem('userId'); // 'userId' should match the key you used for setting it
+    const navigate = useNavigate();
 
 
 
@@ -62,19 +62,19 @@ const Booking = () => {
                 console.error('Error occurred while fetching data:', error);
             });
 
-            // Fetch available dates and show times when the component mounts
-    axios
-    .get('http://localhost:3001/api/available-dates')
-    .then((response) => {
-      setDates(response.data);
-    })
-    .catch((error) => {
-      console.error('Error fetching available dates:', error);
-    });
+        // Fetch available dates and show times when the component mounts
+        axios
+            .get('http://localhost:3001/api/available-dates')
+            .then((response) => {
+                setDates(response.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching available dates:', error);
+            });
 
-  
 
-     }, []);
+
+    }, []);
 
     useEffect(() => {
         // Calculate availability status whenever selectedSeats change
@@ -111,11 +111,11 @@ const Booking = () => {
         }
     };
 
-    
+
     // const handleBookNow = () => {
     //     const selectedMovieObject = movieData.find((movie) => movie._id === selectedMovie);
     //     const userId = sessionStorage.getItem('userId'); // or from your authentication context
-    
+
     //     // Create a request object with selectedMovie, selectedSeats, name, email, and userId
     //     const bookingData = {
     //         movieId: selectedMovie,
@@ -126,7 +126,7 @@ const Booking = () => {
     //         seat_number: selectedSeats.join(','),
     //         showTime: selectedShowTime,             
     //     };
-    
+
     //     // Send the bookingData to your backend API using Axios or another HTTP library
     //     axios.post('http://localhost:3001/api/booktickets', bookingData)
     //         .then((response) => {
@@ -148,29 +148,63 @@ const Booking = () => {
     //             window.alert('Already Reserved, Please select another seat.');
     //         });
     // };
-    
+
+    // const handleBookNow = () => {
+    //     const selectedMovieObject = movieData.find((movie) => movie._id === selectedMovie);
+    //     const userId = sessionStorage.getItem('userId'); // or from your authentication context
+
+    //     // Create a request object with selectedMovie, selectedSeats, name, email, and userId
+    //     const bookingData = {
+    //         movieId: selectedMovie,
+    //         seatIds: selectedSeats,
+    //         movieName: selectedMovieObject.MovieName, // Corrected: Set movieName to the MovieName property
+    //         email: email,
+    //         userId: userId,
+    //         seat_number: selectedSeats.join(','),
+    //         showTime: selectedShowTime,
+    //     };
+
+    //     // Send the bookingData to your backend API using Axios or another HTTP library
+    //     axios.post('http://localhost:3001/api/booktickets', bookingData)
+    //         .then((response) => {
+    //             if (response.status === 200) {
+    //                 const bookingId = response.data._id;
+    //                 const bookedSeatNumber = selectedSeats.join(', '); // Get the selected seats as a comma-separated string
+    //                 sendConfirmationEmail(email, bookingId, bookedSeatNumber); // Send email confirmation
+    //                 window.alert(`Booking successful! Your seat number is: ${bookedSeatNumber}`);
+    //                 navigate(`/mybooking/${bookingId}`);
+    //             } else {
+    //                 console.error('Booking failed');
+    //                 window.alert('Booking failed. Please try again later.');
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             console.error('Error booking seats:', error);
+    //             window.alert('Already Reserved, Please select another seat.');
+    //         });
+    // };
     const handleBookNow = () => {
         const selectedMovieObject = movieData.find((movie) => movie._id === selectedMovie);
-        const userId = sessionStorage.getItem('userId'); // or from your authentication context
-    
-        // Create a request object with selectedMovie, selectedSeats, name, email, and userId
+        const userId = sessionStorage.getItem('userId'); // Get the user ID from session storage
         const bookingData = {
             movieId: selectedMovie,
             seatIds: selectedSeats,
-            movieName: selectedMovieObject.MovieName, // Corrected: Set movieName to the MovieName property
+            movieName: selectedMovieObject.MovieName,
             email: email,
             userId: userId,
             seat_number: selectedSeats.join(','),
-            showTime: selectedShowTime,
         };
-    
-        // Send the bookingData to your backend API using Axios or another HTTP library
+
         axios.post('http://localhost:3001/api/booktickets', bookingData)
             .then((response) => {
                 if (response.status === 200) {
                     const bookingId = response.data._id;
-                    const bookedSeatNumber = selectedSeats.join(', '); // Get the selected seats as a comma-separated string
-                    sendConfirmationEmail(email, bookingId, bookedSeatNumber); // Send email confirmation
+                    const bookedSeatNumber = selectedSeats.join(', ');
+                    const userId = sessionStorage.getItem('userId');
+                    console.log('UserId:', userId);
+                    // Pass bookingId and seatNumbers to the email sending route
+                    sendConfirmationEmail(email, bookingId, bookedSeatNumber, userId);
+
                     window.alert(`Booking successful! Your seat number is: ${bookedSeatNumber}`);
                     navigate(`/mybooking/${bookingId}`);
                 } else {
@@ -183,24 +217,26 @@ const Booking = () => {
                 window.alert('Already Reserved, Please select another seat.');
             });
     };
-    
-    // Function to send email confirmation
-    const sendConfirmationEmail = (email, bookingId, seatNumbers) => {
+
+    const sendConfirmationEmail = (email, bookingId, seatNumbers, userId, movieName) => {
         // You can use Axios or a dedicated library to send the email from the frontend.
         // Example using Axios:
-        axios.post('http://localhost:3001/api/send-email', {
-            email: email,
+        axios.post('http://localhost:3001/api/sendEmail', {
+            to: email,
             bookingId: bookingId,
             seatNumbers: seatNumbers,
+            userId: userId,
+            movieName: movieName,             
+            subject: 'Booking Confirmation',
+            text: `Thank you for booking! Your booking ID is ${bookingId}. Your seat number(s) are: ${seatNumbers}`,
         })
-        .then((response) => {
-            console.log('Email confirmation sent successfully:', response.data);
-        })
-        .catch((error) => {
-            console.error('Error sending email confirmation:', error);
-        });
+            .then((response) => {
+                console.log('Email confirmation sent successfully:', response.data);
+            })
+            .catch((error) => {
+                console.error('Error sending email confirmation:', error);
+            });
     };
-    
 
     const handleSeatTyping = (e) => {
         setEnteredSeat(e.target.value);
@@ -244,7 +280,7 @@ const Booking = () => {
         setSelectedSeats([]);
     };
 
-  const [selectedShowTime, setSelectedShowTime] = useState(''); 
+    const [selectedShowTime, setSelectedShowTime] = useState('');
 
     useEffect(() => {
         axios.post('http://localhost:3001/api/availableMovies')
@@ -268,7 +304,7 @@ const Booking = () => {
             });
         getdata();
     }, []);
-    
+
 
     return (
 
@@ -323,7 +359,7 @@ const Booking = () => {
                             ))}
                         </Select>
                     </FormControl>
-                    
+
                     <Typography variant="body1">
                         Availability Status: {availabilityStatus}
                     </Typography>
@@ -355,8 +391,8 @@ const Booking = () => {
                         margin="normal"
                         fullWidth
                     />
-                    
-                    
+
+
                     <Button
                         variant="contained"
                         color="primary"

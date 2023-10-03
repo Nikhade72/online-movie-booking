@@ -34,7 +34,7 @@ const MyBooking = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const { bookingId } = useParams();
-    const userId = sessionStorage.getItem('userId'); // or from your authentication context
+    const userId = sessionStorage.getItem('userId');
 
 
     
@@ -83,23 +83,7 @@ const MyBooking = () => {
     return (
 
         
-    //     <div>
-    //     <h1>Your Booking Details</h1>
-    //     {loading && <p>Loading...</p>}
-    //     {error && <p>Error: {error.message}</p>}
-    //     {bookingDetails && (
-    //         <div>
-    //             <h2>Booking ID: {bookingDetails._id}</h2>
-    //             <p>User ID: {bookingDetails.userId}</p>
-    //             <p>Movie ID: {bookingDetails.movieId}</p>
-    //             <p>Movie Name: {bookingDetails.movieName}</p>
-    //             <p>Email: {bookingDetails.email}</p>
-    //             <p>Seat Number: {bookingDetails.seat_number}</p>
-    //             {/* Add more details as needed */}
-    //         </div>
-    //     )}
-    // </div>
-
+    
     <ContainerStyled>
       <Typography variant="h4" gutterBottom>
         Your Booking Details
