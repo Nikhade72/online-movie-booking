@@ -111,26 +111,22 @@ const Booking = () => {
         }
     };
 
+    
     // const handleBookNow = () => {
-
     //     const selectedMovieObject = movieData.find((movie) => movie._id === selectedMovie);
     //     const userId = sessionStorage.getItem('userId'); // or from your authentication context
-
+    
     //     // Create a request object with selectedMovie, selectedSeats, name, email, and userId
     //     const bookingData = {
     //         movieId: selectedMovie,
     //         seatIds: selectedSeats,
-    //         movieName: selectedMovieObject.MovieName, // Set movieName to the MovieName property
+    //         movieName: selectedMovieObject.MovieName, // Corrected: Set movieName to the MovieName property
     //         email: email,
     //         userId: userId,
-    //         // date: {
-    //         //     type: Date,
-    //         //     default: new Date(), // Set the default value to the current date
-    //         // },
     //         seat_number: selectedSeats.join(','),
     //         showTime: selectedShowTime,             
     //     };
-
+    
     //     // Send the bookingData to your backend API using Axios or another HTTP library
     //     axios.post('http://localhost:3001/api/booktickets', bookingData)
     //         .then((response) => {
@@ -152,6 +148,7 @@ const Booking = () => {
     //             window.alert('Already Reserved, Please select another seat.');
     //         });
     // };
+    
     const handleBookNow = () => {
         const selectedMovieObject = movieData.find((movie) => movie._id === selectedMovie);
         const userId = sessionStorage.getItem('userId'); // or from your authentication context
@@ -164,20 +161,18 @@ const Booking = () => {
             email: email,
             userId: userId,
             seat_number: selectedSeats.join(','),
-            showTime: selectedShowTime,             
+            showTime: selectedShowTime,
         };
     
         // Send the bookingData to your backend API using Axios or another HTTP library
         axios.post('http://localhost:3001/api/booktickets', bookingData)
             .then((response) => {
                 if (response.status === 200) {
-                    console.log('Booking successful');
-                    console.log(response.data)
                     const bookingId = response.data._id;
-                    console.log(bookingId);
                     const bookedSeatNumber = selectedSeats.join(', '); // Get the selected seats as a comma-separated string
+                    sendConfirmationEmail(email, bookingId, bookedSeatNumber); // Send email confirmation
                     window.alert(`Booking successful! Your seat number is: ${bookedSeatNumber}`);
-                    navigate(`/mybooking/${bookingId}`)
+                    navigate(`/mybooking/${bookingId}`);
                 } else {
                     console.error('Booking failed');
                     window.alert('Booking failed. Please try again later.');
@@ -189,6 +184,22 @@ const Booking = () => {
             });
     };
     
+    // Function to send email confirmation
+    const sendConfirmationEmail = (email, bookingId, seatNumbers) => {
+        // You can use Axios or a dedicated library to send the email from the frontend.
+        // Example using Axios:
+        axios.post('http://localhost:3001/api/send-email', {
+            email: email,
+            bookingId: bookingId,
+            seatNumbers: seatNumbers,
+        })
+        .then((response) => {
+            console.log('Email confirmation sent successfully:', response.data);
+        })
+        .catch((error) => {
+            console.error('Error sending email confirmation:', error);
+        });
+    };
     
 
     const handleSeatTyping = (e) => {
