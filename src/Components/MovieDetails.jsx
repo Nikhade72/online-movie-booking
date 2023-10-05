@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import Header from './Header'; 
+import Header from './Header';
 
 const MovieDetails = ({ Image, Category, Description, Cast, review, }) => {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   useEffect(() => {
     // Define your backend API endpoint for fetching movie details
     const apiUrl = `http://localhost:3001/api/viewMovies/${id}`;
@@ -40,9 +40,9 @@ const MovieDetails = ({ Image, Category, Description, Cast, review, }) => {
     return <p>Movie not found.</p>;
   }
 
-    return (
-        <div>
-            <Box width={'100%'} padding={2}>
+  return (
+    <div>
+      <Box width={'100%'} padding={2}>
         <img src={movieDetails.Image} alt="Movie Poster" width="100%" />
       </Box>
       <Box padding={2}>
@@ -80,8 +80,8 @@ const MovieDetails = ({ Image, Category, Description, Cast, review, }) => {
           Book Ticket
         </Button>
       </Box>
-        </div>
-    )
+    </div>
+  )
 }
 
 export default MovieDetails

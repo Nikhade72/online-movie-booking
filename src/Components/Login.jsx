@@ -29,11 +29,11 @@ const Login = () => {
         if (response.data.message === "login successfull") {
           const userId = response.data.data._id;
           console.log(userId)
-        const userName = response.data.data.Name;
-        const email = response.data.data.email;
-        sessionStorage.setItem("userId", userId);
-        sessionStorage.setItem("userName", userName);
-        sessionStorage.setItem("email", email);
+          const userName = response.data.data.Name;
+          const email = response.data.data.email;
+          sessionStorage.setItem("userId", userId);
+          sessionStorage.setItem("userName", userName);
+          sessionStorage.setItem("email", email);
           navigate("/user");
         } else if (response.data.message === "admin successfull") {
           alert("admin successfull");

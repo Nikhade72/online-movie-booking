@@ -21,8 +21,8 @@ const Booking = () => {
     const [dates, setDates] = useState([]); // State for available dates
     const [selectedDate, setSelectedDate] = useState(null);
 
-    const userId = sessionStorage.getItem('userId'); // 'userId' should match the key you used for setting it
     const navigate = useNavigate();
+    const userId = sessionStorage.getItem('userId');
 
 
 
@@ -62,15 +62,6 @@ const Booking = () => {
                 console.error('Error occurred while fetching data:', error);
             });
 
-        // Fetch available dates and show times when the component mounts
-        axios
-            .get('http://localhost:3001/api/available-dates')
-            .then((response) => {
-                setDates(response.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching available dates:', error);
-            });
 
 
 
@@ -226,7 +217,7 @@ const Booking = () => {
             bookingId: bookingId,
             seatNumbers: seatNumbers,
             userId: userId,
-            movieName: movieName,             
+            movieName: movieName,
             subject: 'Booking Confirmation',
             text: `Thank you for booking! Your booking ID is ${bookingId}. Your seat number(s) are: ${seatNumbers}`,
         })
@@ -280,7 +271,6 @@ const Booking = () => {
         setSelectedSeats([]);
     };
 
-    const [selectedShowTime, setSelectedShowTime] = useState('');
 
     useEffect(() => {
         axios.post('http://localhost:3001/api/availableMovies')
@@ -307,8 +297,6 @@ const Booking = () => {
 
 
     return (
-
-
         <div className="add" style={{ backgroundImage: 'url("https://tse2.mm.bing.net/th?id=OIP.gvbtWmPd42E3Q03TmxqYEQHaE5&pid=Api&P=0&h=180")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: '1000px' }}>
             <Userheader />
             <Box

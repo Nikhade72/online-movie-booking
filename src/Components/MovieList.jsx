@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const MovieList = () => {
-    const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     // Fetch movies from your backend API
@@ -18,7 +18,7 @@ const MovieList = () => {
 
   return (
     <div>
-         <h1>Movie List</h1>
+      <h1>Movie List</h1>
       <ul>
         {movies.map((movie) => (
           <li key={movie.id}>

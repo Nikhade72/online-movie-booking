@@ -103,9 +103,9 @@ const Signup = () => {
                 fontWeight="800"
                 textAlign={"center"}
               >
-                
-                 Already have an account?  <a href="/login">Log In</a>
-                
+
+                Already have an account?  <a href="/login">Log In</a>
+
               </Typography>
             </Box>
           </Dialog>

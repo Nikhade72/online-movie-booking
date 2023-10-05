@@ -4,6 +4,41 @@ import { Box, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { CardActionArea, Card, CardContent } from '@mui/material';
 import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import AdminNav from './AdminNav';
+
+const styles = {
+  container: {
+    maxWidth: '500px',
+    margin: '0 auto',
+    padding: '100px',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+  },
+  label: {
+    fontWeight: 'bold',
+  },
+  input: {
+    padding: '5px',
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+  },
+  select: {
+    padding: '5px',
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+  },
+  button: {
+    backgroundColor: 'blue',
+    color: 'white',
+    padding: '10px',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  },
+};
 
 const AddMovies = () => {
   const [movieData, setMovieData] = useState({
@@ -37,6 +72,7 @@ const AddMovies = () => {
     });
   };
 
+  const navigate = useNavigate(); // Initialize the navigate function
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -45,13 +81,12 @@ const AddMovies = () => {
       .then((response) => {
         if (response.status === 200) {
           console.log('Movie added successfully');
-          // Navigate to the admin page or wherever you want
-          // You can use the 'Navigate' component from 'react-router-dom'
-          setMovieData({
-            ...movieData,
-            _id: response.data._id, // Assuming the response contains the _id
-          });
-          Navigate('/admin');
+          window.alert('Movie added successfully');
+          navigate('/admin');
+          // setMovieData({
+          //   ...movieData,
+          //   _id: response.data._id, // Assuming the response contains the _id
+          // });
         } else {
           console.log('Error adding movie. Please try again.');
         }
@@ -89,9 +124,12 @@ const AddMovies = () => {
   };
 
   return (
-    <div>
-       <h2>Add a New Movie</h2>
-      <form onSubmit={handleSubmit}>
+   <div>
+    <AdminNav/>
+    <div className="add" style={{ backgroundImage: 'url("https://thumbs.dreamstime.com/b/paper-texture-background-scrapbooking-artistic-design-digital-any-other-design-54498672.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: '1000px' }}>
+     <div style={styles.container}>
+      <h2>Add a New Movie</h2>
+      <form style={styles.form} onSubmit={handleSubmit}>
         <div>
           <label htmlFor="MovieName">Movie Name:</label>
           <input
@@ -189,19 +227,21 @@ const AddMovies = () => {
             required
           />
         </div>
-        <button type="submit">Add Movie</button>
+        <button type="submit" style={styles.button}>Add Movie</button>
       </form>
 
       {movieData._id && (
         <div>
           <h2>Delete Movie</h2>
-          <button type="button" onClick={handleDelete}>
+          <button type="button" onClick={handleDelete} style={styles.button}>
             Delete Movie
           </button>
         </div>
       )}
-      
+
     </div>
+   </div>
+   </div>
   )
 }
 

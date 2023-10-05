@@ -45,31 +45,25 @@ const Userheader = () => {
             options={movie.map((option) => option.MovieName)}
             value={value}
             onChange={(event, newValue) => setValue(newValue)}
-            getOptionLabel={(option) => option.toString()} // Ensure the option is a string
+            // getOptionLabel={(option) => option.toString()} // Ensure the option is a string
             renderInput={(params) => (
-              <TextField
-                variant="standard"
+              <TextField variant="standard"
                 sx={{ input: { color: 'white' } }}
                 {...params}
                 placeholder="Search for Movies"
               />
             )}
           />
-
         </Box>
         <Box display={"flex"}>
           <Tabs textcolor="inherit" indicatorColor="white">
-            //<Tab label="My Booking" value={0} href="/tickets" />
+            <Tab textcolor="inherit" indicatorColor="white" label="My Booking" href="/tickets" />
           </Tabs>
           <Avatar
             size="small"
             src="/broken-image.jpg"
           />
-
-
-          {/* <Tab  label="Admin"  href='/admin'/> */}
           <Tab label="Logout" value={1} href='/' />
-
         </Box>
       </Toolbar>
     </AppBar>
