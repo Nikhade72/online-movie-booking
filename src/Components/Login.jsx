@@ -15,36 +15,74 @@ import Footer from "./Footer";
 const Login = () => {
   const navigate = useNavigate();
   const [input, setInputs] = useState({});
+  const [error, setError] = useState("");
 
+  // const inputHandler = (e) => {
+  //   setInputs({ ...input, [e.target.name]: e.target.value });
+  //   console.log(input);
+  // };
+
+  // const loginHandler = () => {
+  //   axios
+  //     .post("http://localhost:3001/api/login", input)
+  //     .then((response) => {
+  //       console.log(response.data.data);
+  //       if (response.data.message === "login successfull") {
+  //         const userId = response.data.data._id;
+  //         console.log(userId)
+  //         const userName = response.data.data.Name;
+  //         const email = response.data.data.email;
+  //         sessionStorage.setItem("userId", userId);
+  //         sessionStorage.setItem("userName", userName);
+  //         sessionStorage.setItem("email", email);
+  //         navigate("/user");
+  //       } else if (response.data.message === "admin successfull") {
+  //         alert("admin successfull");
+  //         navigate("/admin")
+  //       } else {
+  //         console.log(response.data.message);
+  //         alert(response.data.message);
+  //       }
+  //     })
+  //     .catch((error) => console.log(error));
+   
+  // };
   const inputHandler = (e) => {
     setInputs({ ...input, [e.target.name]: e.target.value });
-    console.log(input);
+    setError(""); // Clear any previous error messages
   };
 
   const loginHandler = () => {
     axios
       .post("http://localhost:3001/api/login", input)
       .then((response) => {
-        console.log(response.data.data);
-        if (response.data.message === "login successfull") {
+        if (response.data.message === "login successful") {
           const userId = response.data.data._id;
-          console.log(userId)
           const userName = response.data.data.Name;
           const email = response.data.data.email;
+          const token = response.data.token; // Get the JWT token from the response
+          console.log(token)
+          // Store user data and token in sessionStorage
           sessionStorage.setItem("userId", userId);
           sessionStorage.setItem("userName", userName);
           sessionStorage.setItem("email", email);
+          sessionStorage.setItem("token", token);
+
           navigate("/user");
-        } else if (response.data.message === "admin successfull") {
-          alert("admin successfull");
-          navigate("/admin")
+        } else if (response.data.message === "admin login successful") {
+          alert("Admin login successful");
+          navigate("/admin");
         } else {
-          console.log(response.data.message);
-          alert(response.data.message);
+          setError(response.data.message);
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setError("An error occurred during login.");
+      });
   };
+
+  
   return (
     <div>
       <div className="add" style={{ backgroundImage: 'url("http://clipart-library.com/images/6cr5bjnEi.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: '1000px' }}>
@@ -110,7 +148,7 @@ const Login = () => {
 
       </div>
 
-
+<Footer/>
     </div>
   );
 };

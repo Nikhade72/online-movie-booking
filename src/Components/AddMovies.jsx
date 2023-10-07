@@ -11,32 +11,31 @@ const styles = {
   container: {
     maxWidth: '500px',
     margin: '0 auto',
-    padding: '100px',
+    padding: '16px',
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px',
+    gap: '16px',
   },
   label: {
     fontWeight: 'bold',
   },
   input: {
-    padding: '5px',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
+    padding: '12px',
   },
   select: {
-    padding: '5px',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
+    padding: '12px',
   },
   button: {
     backgroundColor: 'blue',
     color: 'white',
-    padding: '10px',
+    padding: '12px',
     borderRadius: '5px',
     cursor: 'pointer',
+  },
+  card: {
+    marginBottom: '16px',
   },
 };
 
@@ -82,6 +81,8 @@ const AddMovies = () => {
         if (response.status === 200) {
           console.log('Movie added successfully');
           window.alert('Movie added successfully');
+          const addedMovie = response.data;
+
           navigate('/admin');
           // setMovieData({
           //   ...movieData,

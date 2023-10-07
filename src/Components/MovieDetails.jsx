@@ -3,9 +3,13 @@ import { Box, Typography, Button } from '@mui/material';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Header from './Header';
+import Review from './Review';
 
-const MovieDetails = ({ Image, Category, Description, Cast, review, }) => {
+const MovieDetails = ({ match }) => {
+  const movieId = match.params.id;
   const { id } = useParams();
+  console.log('MovieDetails - Received id:', id); // Add this line to check the received id
+
   const [movieDetails, setMovieDetails] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,6 +23,7 @@ const MovieDetails = ({ Image, Category, Description, Cast, review, }) => {
       .then((response) => {
         // Successfully fetched data
         setMovieDetails(response.data);
+        console.log('MovieDetails - Setting movieId:', response.data.MovieId); // Add this line to check the setting of movieId
         setLoading(false);
       })
       .catch((error) => {
@@ -26,6 +31,7 @@ const MovieDetails = ({ Image, Category, Description, Cast, review, }) => {
         setError(error);
         setLoading(false);
       });
+
   }, [id]);
 
   if (loading) {
@@ -40,6 +46,21 @@ const MovieDetails = ({ Image, Category, Description, Cast, review, }) => {
     return <p>Movie not found.</p>;
   }
 
+  const handleReviewSubmit = (reviewData) => {
+    // Implement the logic to submit the review to the backend
+    axios
+      .post('http://localhost:3001/api/submitreview', reviewData)
+      .then((response) => {
+        console.log('MovieDetails:', response.data);
+        console.log('Review submitted successfully:', response.data);
+        // Optionally, you can update the UI to reflect the submitted review
+      })
+      .catch((error) => {
+        console.error('Error submitting review:', error);
+        // Handle the error appropriately
+      });
+  };
+  
   return (
     <div>
       <Box width={'100%'} padding={2}>
@@ -56,18 +77,13 @@ const MovieDetails = ({ Image, Category, Description, Cast, review, }) => {
         <Typography variant="body2" color="text.secondary">
           Cast Details: {movieDetails.Cast}
         </Typography>
-
         <Typography variant="body2" color="text.secondary">
-          Reviews:
+        <Review movieId={movieDetails._id} />
         </Typography>
-        <ul>
-          {movieDetails.Reviews &&
-            movieDetails.Reviews.map((review, index) => (
-              <li key={index}>
-                User: {review.user}, Rating: {review.rating}, Comment: {review.comment}
-              </li>
-            ))}
-        </ul>
+      
+        <Typography variant="body2" color="text.secondary">
+      Average Rating: {movieDetails.averageRating.toFixed(1)}
+    </Typography>
 
         {/* Add the "Book Ticket" button here */}
         <Button

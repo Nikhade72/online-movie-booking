@@ -10,6 +10,7 @@ import axios from 'axios';
 import Card from '@mui/material/Card';
 import { useEffect, useState } from 'react'
 import Userheader from './Userheader';
+import Footer from './Footer';
 
 
 const User = () => {
@@ -101,6 +102,9 @@ const User = () => {
           ))}
         </Box>
       </Box>
+      <div>
+        <Footer/>
+      </div>
     </div>
   )
 }

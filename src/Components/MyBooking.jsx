@@ -6,9 +6,11 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { CircularProgress } from '@mui/material';
 import { styled } from '@mui/system';
 import Logout from './Logout'
+import Review from './Review'
+import Footer from './Footer'
 
 const ContainerStyled = styled(Container)({
-  paddingTop: '10px', // You can adjust this value
+  paddingTop: '5px', // You can adjust this value
   marginBottom: '8px', // You can adjust this value
 });
 
@@ -29,64 +31,6 @@ const TableStyled = styled(Table)({
   minWidth: '400px', // You can adjust this value
 });
 
-const ReviewForm = ({ onSubmit }) => {
-  const [reviewText, setReviewText] = useState('');
-  const [rating, setRating] = useState(0);
-
-  const handleReviewSubmit = () => {
-    onSubmit(reviewText, rating);
-    setReviewText('');
-    setRating(0);
-  };
-  return (
-    <Box mt={2}>
-      <TextField
-        label="Write a Review"
-        multiline
-        rows={4}
-        variant="outlined"
-        fullWidth
-        value={reviewText}
-        onChange={(e) => setReviewText(e.target.value)}
-      />
-      <Box mt={2}>
-        <Typography>Rate the Movie</Typography>
-        <Rating
-          name="movie-rating"
-          value={rating}
-          onChange={(event, newValue) => setRating(newValue)}
-        />
-
-      </Box>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleReviewSubmit}
-        disabled={!reviewText || rating === 0}
-      >
-        Submit Review
-      </Button>
-    </Box>
-  );
-};
-
-const ReviewList = ({ reviews }) => {
-  return (
-    <Box mt={2}>
-      {reviews.map((review, index) => (
-        <Paper
-          key={index}
-          variant="outlined"
-          style={{ padding: '16px', marginBottom: '16px' }}
-        >
-          <Typography variant="body1">{review.reviewText}</Typography>
-          <Typography>Rating: {review.rating}</Typography>
-        </Paper>
-      ))}
-    </Box>
-  );
-};
-
 
 const MyBooking = () => {
 
@@ -95,9 +39,11 @@ const MyBooking = () => {
   const [error, setError] = useState(null);
   const { bookingId } = useParams();
   const userId = sessionStorage.getItem('userId');
+  const [movieDetails, setMovieDetails] = useState(null); // New state to store movie details
 
-  const [rating, setRating] = useState(0);
-  const [reviewText, setReviewText] = useState('');
+  const navigate = useNavigate();
+
+
 
   useEffect(() => {
     const fetchBookingDetails = async () => {
@@ -139,7 +85,7 @@ const MyBooking = () => {
   return (
 
     <div >
-      <Logout />
+      <Userheader />
       <div
         className="add"
         style={{
@@ -168,6 +114,7 @@ const MyBooking = () => {
             </Typography>
           )}
           {bookingDetails && (
+            
             <PaperStyled>
               <TableContainer component={PaperStyled}>
                 <TableStyled aria-label="Booking Details">
@@ -195,15 +142,11 @@ const MyBooking = () => {
                       <TableCell>Seat Number</TableCell>
                       <TableCell>{bookingDetails.seat_number}</TableCell>
                     </TableRow>
-
-                    {/* Add more details as needed */}
                   </TableBody>
                 </TableStyled>
+                
               </TableContainer>
-{/* 
-              <Button variant="outlined" color="secondary" onClick={handleCancelTicket}>
-                Cancel Ticket
-              </Button> */}
+             
               <Box
                 display="flex"
                 justifyContent="center"
@@ -216,8 +159,10 @@ const MyBooking = () => {
               </Box>
             </PaperStyled>
           )}
+         
         </ContainerStyled>
       </div>
+      <Review/>
     </div>
 
   )

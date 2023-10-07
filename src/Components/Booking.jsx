@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Typography, Button, TextField, Select, MenuItem, InputLabel, FormControl, Box } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
+import Footer from './Footer';
 
 
 const Booking = () => {
@@ -103,77 +104,6 @@ const Booking = () => {
     };
 
 
-    // const handleBookNow = () => {
-    //     const selectedMovieObject = movieData.find((movie) => movie._id === selectedMovie);
-    //     const userId = sessionStorage.getItem('userId'); // or from your authentication context
-
-    //     // Create a request object with selectedMovie, selectedSeats, name, email, and userId
-    //     const bookingData = {
-    //         movieId: selectedMovie,
-    //         seatIds: selectedSeats,
-    //         movieName: selectedMovieObject.MovieName, // Corrected: Set movieName to the MovieName property
-    //         email: email,
-    //         userId: userId,
-    //         seat_number: selectedSeats.join(','),
-    //         showTime: selectedShowTime,             
-    //     };
-
-    //     // Send the bookingData to your backend API using Axios or another HTTP library
-    //     axios.post('http://localhost:3001/api/booktickets', bookingData)
-    //         .then((response) => {
-    //             if (response.status === 200) {
-    //                 console.log('Booking successful');
-    //                 console.log(response.data)
-    //                 const bookingId = response.data._id;
-    //                 console.log(bookingId);
-    //                 const bookedSeatNumber = selectedSeats.join(', '); // Get the selected seats as a comma-separated string
-    //                 window.alert(`Booking successful! Your seat number is: ${bookedSeatNumber}`);
-    //                 navigate(`/mybooking/${bookingId}`)
-    //             } else {
-    //                 console.error('Booking failed');
-    //                 window.alert('Booking failed. Please try again later.');
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error booking seats:', error);
-    //             window.alert('Already Reserved, Please select another seat.');
-    //         });
-    // };
-
-    // const handleBookNow = () => {
-    //     const selectedMovieObject = movieData.find((movie) => movie._id === selectedMovie);
-    //     const userId = sessionStorage.getItem('userId'); // or from your authentication context
-
-    //     // Create a request object with selectedMovie, selectedSeats, name, email, and userId
-    //     const bookingData = {
-    //         movieId: selectedMovie,
-    //         seatIds: selectedSeats,
-    //         movieName: selectedMovieObject.MovieName, // Corrected: Set movieName to the MovieName property
-    //         email: email,
-    //         userId: userId,
-    //         seat_number: selectedSeats.join(','),
-    //         showTime: selectedShowTime,
-    //     };
-
-    //     // Send the bookingData to your backend API using Axios or another HTTP library
-    //     axios.post('http://localhost:3001/api/booktickets', bookingData)
-    //         .then((response) => {
-    //             if (response.status === 200) {
-    //                 const bookingId = response.data._id;
-    //                 const bookedSeatNumber = selectedSeats.join(', '); // Get the selected seats as a comma-separated string
-    //                 sendConfirmationEmail(email, bookingId, bookedSeatNumber); // Send email confirmation
-    //                 window.alert(`Booking successful! Your seat number is: ${bookedSeatNumber}`);
-    //                 navigate(`/mybooking/${bookingId}`);
-    //             } else {
-    //                 console.error('Booking failed');
-    //                 window.alert('Booking failed. Please try again later.');
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error booking seats:', error);
-    //             window.alert('Already Reserved, Please select another seat.');
-    //         });
-    // };
     const handleBookNow = () => {
         const selectedMovieObject = movieData.find((movie) => movie._id === selectedMovie);
         const userId = sessionStorage.getItem('userId'); // Get the user ID from session storage
@@ -410,6 +340,9 @@ const Booking = () => {
                     </Button>
                 </form>
             </Box>
+            <div>
+                <Footer/>
+            </div>
         </div>
 
     )

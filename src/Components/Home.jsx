@@ -9,6 +9,7 @@ import { CardActionArea } from '@mui/material';
 import axios from 'axios';
 import Card from '@mui/material/Card';
 import { useEffect, useState } from 'react'
+import Footer from './Footer';
 
 const Home = () => {
 
@@ -38,7 +39,7 @@ const Home = () => {
   return (
     <div>
 
-      <div className="add" style={{ backgroundImage: 'url("https://lovelace-media.imgix.net/getty/3208189.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: 'auto' }}>
+      <div className="add" style={{ backgroundImage: 'url("https://tse3.mm.bing.net/th?id=OIP.dkHVrWqztdsTvU9T-p6YDgHaEo&pid=Api&P=0&h=180")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: 'auto' }}>
         <Header />
         <Box width={'70%'} height={'100%'} margin={'auto'} marginTop={2}>
           <Box margin={'auto'} width={'100%'} height={'50vh'} padding={2}>
@@ -55,7 +56,7 @@ const Home = () => {
             </Typography>
           </Box>
           <Box display='flex' width='100%' justifyContent={'center'} flexWrap='wrap'>
-            {movie.slice(0, 6).map((value, index) => {
+            {movie.slice(0, 4).map((value, index) => {
               return (
                 <Card key={index} h-100 sx={{ maxWidth: 550, height: 550, borderRadius: 3, padding: '2%', margin: '2%', ':hover': { boxShadow: '10px 10px 20px #cc' } }}>
                   <img height={'50%'} width={'100%'} src={value.Image} alt="movie poster" margin="auto" flex-grow={1} flex-basis={0} />
@@ -91,7 +92,7 @@ const Home = () => {
           </Box>
         </Box>
       </div>
-
+<Footer/>
     </div>
 
 

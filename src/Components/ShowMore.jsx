@@ -10,6 +10,7 @@ import axios from 'axios';
 import Card from '@mui/material/Card';
 import { useEffect, useState } from 'react'
 import Userheader from './Userheader';
+import Footer from './Footer';
 
 
 const ShowMore = () => {
@@ -87,7 +88,7 @@ const ShowMore = () => {
                   Cast: {value.Cast}
                 </Typography>
                 <Typography gutterBottom variant='h6' component='div'>
-                  Reviews: {value.Reviews}
+                averageRating: {value.averageRating}
                 </Typography>
               </CardContent>
               <CardActionArea>
@@ -106,6 +107,9 @@ const ShowMore = () => {
           ))}
         </Box>
       </Box>
+      <div>
+        <Footer/>
+      </div>
     </div>
   )
 }

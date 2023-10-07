@@ -17,6 +17,7 @@ import AdminNav from "./Components/AdminNav";
 import MyBooking from "./Components/MyBooking";
 import Tickets from "./Components/Tickets";
 import UpdateMovies from "./Components/UpdateMovies";
+import Review from "./Components/Review";
 
 
 
@@ -42,6 +43,7 @@ function App() {
         <Route path="/mybooking/:bookingId" element={<MyBooking />} /> 
         <Route path="/tickets" element={<Tickets />} />
         <Route path="/updatemovies" element={<UpdateMovies />} />
+        <Route path="/review" element={<Review />} />
 
       </Routes>
       </BrowserRouter>

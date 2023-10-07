@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const UpdateMovies = () => {
   const [movieData, setMovieData] = useState({
-    TicketRates: 0,
+    TicketRates: '',
     timing: '',
     _id: '' // You should initialize _id here
   });
