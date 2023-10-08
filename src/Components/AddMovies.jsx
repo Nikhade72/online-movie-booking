@@ -50,6 +50,7 @@ const AddMovies = () => {
     TicketRates: 0, // New field
     NoOfSeats: 0, // New field
   });
+  const [jwtToken, setJwtToken] = useState('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbklkIjoiNjUwYWY5MTRiODI4NGJmMmZiYWJkY2JiIiwiaWF0IjoxNjk2NzA1ODM1LCJleHAiOjE2OTY3OTIyMzV9.eyloKu0oLuOMAxO970aaY7kfjN1dWdEYu9wvp_Iy0XM'); // Replace with your JWT token
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -76,13 +77,26 @@ const AddMovies = () => {
     e.preventDefault();
 
     axios
-      .post('http://localhost:3001/api/addMovie', movieData)
+      .post('http://localhost:3001/api/addMovie', movieData, {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      })
       .then((response) => {
         if (response.status === 200) {
           console.log('Movie added successfully');
           window.alert('Movie added successfully');
-          const addedMovie = response.data;
+          const userId = response.data.data._id;
+          const userName = response.data.data.Name;
+          const email = response.data.data.email;
+          const token = response.data.token; // Get the JWT token from the response
 
+          console.log(token)
+          const addedMovie = response.data;
+          sessionStorage.setItem("userId", userId);
+          sessionStorage.setItem("userName", userName);
+          sessionStorage.setItem("email", email);
+          sessionStorage.setItem("token", token);
           navigate('/admin');
           // setMovieData({
           //   ...movieData,

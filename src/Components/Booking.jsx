@@ -25,6 +25,7 @@ const Booking = () => {
     const navigate = useNavigate();
     const userId = sessionStorage.getItem('userId');
 
+    const jwtToken = sessionStorage.getItem('token');
 
 
     // Function to initialize session storage with user data
@@ -62,9 +63,6 @@ const Booking = () => {
             .catch((error) => {
                 console.error('Error occurred while fetching data:', error);
             });
-
-
-
 
     }, []);
 
@@ -115,6 +113,8 @@ const Booking = () => {
             userId: userId,
             seat_number: selectedSeats.join(','),
         };
+        
+    // Send a POST request to book tickets with JWT token
 
         axios.post('http://localhost:3001/api/booktickets', bookingData)
             .then((response) => {

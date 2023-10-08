@@ -40,6 +40,7 @@ const MyBooking = () => {
   const { bookingId } = useParams();
   const userId = sessionStorage.getItem('userId');
   const [movieDetails, setMovieDetails] = useState(null); // New state to store movie details
+  console.log(bookingId)
 
   const navigate = useNavigate();
 
@@ -50,6 +51,7 @@ const MyBooking = () => {
       try {
         const response = await axios.get(`http://localhost:3001/api/bookingdetails/${bookingId}`);
         setBookingDetails(response.data.bookingDetails);
+        console.log(response.data.bookingDetails)
         setLoading(false);
       } catch (error) {
         setError(error);

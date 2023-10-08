@@ -174,7 +174,6 @@ const Admin = () => {
         ))}
       </Box>
     </Box>
-
   </div>
   )
 }

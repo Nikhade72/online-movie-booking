@@ -10,7 +10,7 @@ const Tickets = () => {
   const navigate = useNavigate();
   console.log(userId)
  
-  
+ 
   return (
     <div>
     {loading ? (
