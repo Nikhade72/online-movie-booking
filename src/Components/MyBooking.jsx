@@ -39,19 +39,18 @@ const MyBooking = () => {
   const [error, setError] = useState(null);
   const { bookingId } = useParams();
   const userId = sessionStorage.getItem('userId');
-  const [movieDetails, setMovieDetails] = useState(null); // New state to store movie details
-  console.log(bookingId)
+  console.log('User ID:', userId); 
+  const [otherBookings, setOtherBookings] = useState([]);
+  const [isCancelled, setIsCancelled] = useState(false);
+  const [remainingSeats, setRemainingSeats] = useState(null);
 
   const navigate = useNavigate();
-
-
 
   useEffect(() => {
     const fetchBookingDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/bookingdetails/${bookingId}`);
+        const response = await axios .get(`http://localhost:3001/api/bookingdetails/${bookingId}`);
         setBookingDetails(response.data.bookingDetails);
-        console.log(response.data.bookingDetails)
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -59,8 +58,18 @@ const MyBooking = () => {
       }
     };
 
+    const fetchOtherBookings = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/api/otherbookings/${userId}`);
+        setOtherBookings(response.data.otherBookings);
+      } catch (error) {
+        console.error('Error fetching other bookings:', error);
+      }
+    };
+
     fetchBookingDetails();
-  }, [bookingId]);
+    fetchOtherBookings();
+  }, [bookingId, userId]);
 
   const handleCancelTicket = () => {
     if (!bookingDetails) {
@@ -72,8 +81,7 @@ const MyBooking = () => {
       .post(`http://localhost:3001/api/cancelticket/${bookingDetails._id}`)
       .then((response) => {
         if (response.status === 200) {
-          console.log('Booking canceled successfully');
-          window.alert('Booking canceled successfully');
+          setIsCancelled(true);
         } else {
           console.error('Booking cancellation failed');
         }
@@ -82,90 +90,104 @@ const MyBooking = () => {
         console.error('Error canceling booking:', error);
       });
   };
+  
 
 
   return (
 
-    <div >
-      <Userheader />
-      <div
-        className="add"
-        style={{
-          backgroundImage:
-            'url("https://tse1.mm.bing.net/th?id=OIP.xBvSKN42wVchJp4ciWAOCwHaH6&pid=Api&P=0&h=180")',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          height: '100vh', // Set the height of the container to the viewport height
-          display: 'flex',
-          justifyContent: 'center', // Center horizontally
-          alignItems: 'center', // Center vertically
-        }}
-      >
-        <ContainerStyled>
-          <Typography variant="h4" gutterBottom>
-            Your Booking Details
+    
+    <div>
+    <Userheader />
+    <div
+      className="add"
+      style={{
+        backgroundImage:
+          'url("https://tse4.mm.bing.net/th?id=OIP.rG5Cgq-9lqNpXBBz6nV7dgHaEK&pid=Api&P=0&h=180")',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <ContainerStyled>
+        <Typography variant="h4" gutterBottom color={'white'} textAlign={'center'}>
+          {isCancelled ? 'Ticket Canceled' : 'Your Booking Details'}
+        </Typography>
+        {loading && (
+          <LoadingContainer>
+            <CircularProgress />
+          </LoadingContainer>
+        )}
+        {error && (
+          <Typography variant="body1" color="error">
+            Error: {error.message}
           </Typography>
-          {loading && (
-            <LoadingContainer>
-              <CircularProgress />
-            </LoadingContainer>
-          )}
-          {error && (
-            <Typography variant="body1" color="error">
-              Error: {error.message}
+        )}
+        {bookingDetails && !isCancelled && (
+          <PaperStyled>
+            <TableContainer component={PaperStyled}>
+              <TableStyled aria-label="Booking Details">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Field</TableCell>
+                    <TableCell>Value</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>Booking ID</TableCell>
+                    <TableCell>{bookingDetails._id}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Movie Name</TableCell>
+                    <TableCell>{bookingDetails.movieName}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Email</TableCell>
+                    <TableCell>{bookingDetails.email}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Seat Number</TableCell>
+                    <TableCell>{bookingDetails.seat_number}</TableCell>
+                  </TableRow>
+                </TableBody>
+              </TableStyled>
+            </TableContainer>
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              mt={2}
+            >
+              <Button variant="outlined" color="secondary" onClick={handleCancelTicket}>
+                Cancel Ticket
+              </Button>
+            </Box>
+          </PaperStyled>
+        )}
+        {isCancelled && (
+          <Typography variant="body1" color="success">
+            Ticket has been canceled.
+          </Typography>
+        )}
+        {otherBookings.length > 0 && (
+          <PaperStyled>
+            <Typography variant="h6" gutterBottom>
+              Your Other Bookings
             </Typography>
-          )}
-          {bookingDetails && (
-            
-            <PaperStyled>
-              <TableContainer component={PaperStyled}>
-                <TableStyled aria-label="Booking Details">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Field</TableCell>
-                      <TableCell>Value</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell>Booking ID</TableCell>
-                      <TableCell>{bookingDetails._id}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Movie Name</TableCell>
-                      <TableCell>{bookingDetails.movieName}</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell>Email</TableCell>
-                      <TableCell>{bookingDetails.email}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Seat Number</TableCell>
-                      <TableCell>{bookingDetails.seat_number}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </TableStyled>
-                
-              </TableContainer>
-             
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                mt={2} // You can adjust the margin-top as needed
-              >
-                <Button variant="outlined" color="secondary" onClick={handleCancelTicket}>
-                  Cancel Ticket
-                </Button>
-              </Box>
-            </PaperStyled>
-          )}
-         
-        </ContainerStyled>
-      </div>
-      <Review/>
+            {otherBookings.map((booking) => (
+              <div key={booking._id}>
+                {/* Display other booking details here */}
+              </div>
+            ))}
+          </PaperStyled>
+        )}
+      </ContainerStyled>
     </div>
+    <Review />
+  </div>
 
   )
 }
